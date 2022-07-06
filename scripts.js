@@ -38,7 +38,7 @@ function generate(){
 }
 
 function createCard(name,gender,birthday,location){
-  return `<div class=\"card-panel teal lighten-2 col s6\"><p>${name}</p><div></div><p>${gender}</p><div></div><p>${birthday}</p><div></div><p style=\"font-size:11px\">${location}</p></div><div class='divider'></div><div></div>`
+  return `<div class=\"card-panel teal lighten-2 col s6 m12\"><p>${name}</p><div></div><p>${gender}</p><div></div><p>${birthday}</p><div></div><p style=\"font-size:11px\">${location}</p></div><div class='divider'></div><div></div>`
 }
 
 function toggleOpts(){
