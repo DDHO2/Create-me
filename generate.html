@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="materialize/css/materialize.css">
+        <script src='scripts.js'></script>
+    </head>
+    <nav>
+        <div class="nav-wrapper">
+          <a href="home.html" class="brand-logo center">Create Me</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          </ul>
+        </div>
+    </nav>
+    <body>
+        <div>
+            <div class='container'>
+                <div class='row'>
+                    <div class='col s3'>
+                        <div></div>
+                        <p></p>
+                        <button class="btn waves-effect waves-light center" style='font-size: 20px;' onclick='generate()'>Generate</button>
+                        <div></div>
+                        <p></p>
+                        <button class='btn' style='color: black; background: transparent; font-size: 10px;'>Options</button>
+                        <div class='opts'>
+                            <select id="selectGender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other/NA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='col s9 row' id='list'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
