@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="style.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Playfair Display' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      
+      <v-main>
+        <v-container fluid class="fill-height background" style="width:100vw;">
+          <v-row class="pinkish" style="padding-left: 50px; height:100vh; font-family: Playfair Display;">
+            <v-col md="3">
+              <v-row style="position: relative; top:20vh;">
+                
+                <h1 style="font-size:200%; line-height:100px;">Create you MetaYou</h1>
+                <v-btn block elevation="24" x-large @click="generate" :disabled="isDisabled">Create</v-btn>
+                  <v-select v-model="gender"
+          :items="genders"
+          label="Gender"
+          return-object
+          single-line></v-select>
+                <div></div>
+              </v-row>
+            </v-col>
+            <v-col md="6" offset-md="2">
+              <table style="position: relative; top: 20%;">
+                <tbody>
+                  <tr v-for="row in tableRows" style="">
+                    <v-progress-circular v-if="loading":size="70":width="7" color="black" indeterminate style="position: relative; top:30%;"></v-progress-circular>
+                                    <td style="line-height: 0px;"><p style="font-size: 1vh;">{{ row.id }}</p><p style="margin-bottom:30px; font-size: 2vh;">{{ row.value }}</p></td>
+                  </tr>
+                </tbody>
+              </table>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.4/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+        data: {
+          message: 'Hello Vue!',
+          gender:'default',
+          genders: ['Male', 'Female', 'Other'],
+          loading: false,
+          isDisabled: false,
+          tableRowsCached: [
+            {
+            }
+          ],
+          tableRows: [
+            {
+            }
+          ]
+        },
+      mounted: function(){
+      },
+      methods: {
+        generate: async function() {
+          this.tableRows = []
+          this.loading = true;
+          this.isDisabled = true;
+          if (this.gender == "default"){
+            await this.cache(this.gender)
+          } else {
+            console.log('1');
+            await console.log(this.cache(this.gender));
+            console.log('3');
+            console.log('4');
+          }
+        },
+        cache: function() {
+
+          fetch(`https://bfk.dho6342568911.repl.co/getuser?gender=${this.gender}`).then(response => {
+    return response.json()}).then(data => data.fields).then(result => {
+            console.log('2')
+            let results = Object.entries(result)
+            console.log(results)
+            this.tableRows = [];
+            for (var [key,value] of results){
+              if (key=="id"){
+                continue;
+              }
+              key = key.charAt(0).toUpperCase() + key.substring(1)
+              this.tableRows.push({
+                id: key,
+                value: value
+              });
+              
+            }
+            this.isDisabled = false;
+            this.loading = false;
+            return Promise.resolve('2')
+          })
+           
+        }
+      }
+      })
+  </script>
+
+</body>
+
+</html>
